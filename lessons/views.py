@@ -1,9 +1,6 @@
-from django.shortcuts import render
-
-# Create your views here.
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
-from .models import Course, Lesson
-from .serializers import CourseSerializer, LessonSerializer
+from .serializers import *
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -32,3 +29,10 @@ class LessonUpdateApiView(generics.UpdateAPIView):
 
 class LessonDestroyApiView(generics.DestroyAPIView):
     queryset = Lesson.objects.all()
+
+
+class PaymentListApiView(generics.ListAPIView):
+    serializer_class = PaymentSerializer
+    queryset = Payment.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['payment_date', 'course_or_lesson', 'payment_method']

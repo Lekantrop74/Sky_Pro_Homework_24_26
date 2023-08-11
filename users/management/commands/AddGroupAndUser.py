@@ -2,8 +2,7 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.management import BaseCommand
 
-from blog.models import BlogPost
-from forwarding.models import Clients, Transmission, Messages
+from lessons.models import Course, Lesson, Payment
 from users.models import User
 
 
@@ -77,7 +76,7 @@ class Command(BaseCommand):
             ('Администраторы', admin_user, ['add', 'change', 'view']),
         ]
 
-        app_models = [Clients, Transmission, Messages, BlogPost]  # Список всех моделей вашего приложения
+        app_models = [Course, Lesson, Payment]  # Список всех моделей вашего приложения
 
         # Проход по списку данных о группах и действиях
         for group_name, user, actions in groups_data:
