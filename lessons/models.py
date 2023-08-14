@@ -4,7 +4,8 @@ from users.models import User
 
 
 class Course(models.Model):
-    title = models.CharField(max_length=200, verbose_name='Заголовок')
+    objects = None
+    title = models.CharField(max_length=200, unique=True, verbose_name='Заголовок')
     preview = models.ImageField(upload_to='previews/', verbose_name='Превью')
     description = models.TextField()
 
@@ -19,8 +20,7 @@ class Lesson(models.Model):
     description = models.TextField(verbose_name='Описание')
     preview = models.ImageField(upload_to='lesson_previews/', verbose_name='Превью')
     video_link = models.URLField(verbose_name='Ссылка')
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='Урок')
-
+    course = models.ForeignKey('Course', on_delete=models.CASCADE, verbose_name='Курс', related_name='lessons', default=None)
 
     def __str__(self):
         return self.title
@@ -37,3 +37,5 @@ class Payment(models.Model):
         ('transfer', 'Перевод на счет'),
     ]
     payment_method = models.CharField(max_length=10, choices=payment_method_choices, verbose_name='Метод оплаты')
+    lessons = models.ManyToManyField(Lesson, related_name='payments', blank=True)
+

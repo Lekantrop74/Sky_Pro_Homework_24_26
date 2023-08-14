@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
 from users.management.commands.AddGroupAndUser import Command as AddGroupAndUser
-# from users.management.commands.FillLessonData import Command as FillLessonData
+from users.management.commands.FillLessonData import Command as FillLessonData
 
 # from users.management.commands.CreateClients import Command as CreateContent
 # from users.management.commands.CreateMessages import Command as CreateMessages
