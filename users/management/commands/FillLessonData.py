@@ -1,6 +1,7 @@
 import random
-from django.core.management.base import BaseCommand
+
 from django.contrib.auth import get_user_model
+from django.core.management.base import BaseCommand
 
 from lessons.models import *
 
@@ -15,7 +16,9 @@ class Command(BaseCommand):
         for index in range(3):
             course_defaults = {
                 'preview': None,
-                'description': f'Описание курса {index + 1}'
+                'description': f'Описание курса {index + 1}',
+                'owner': random.choice(users)  # Произвольный пользователь становится владельцем курса
+
             }
             course, created = Course.objects.update_or_create(
                 title=f'Курс {index + 1}',
@@ -27,7 +30,9 @@ class Command(BaseCommand):
                     'description': f'Описание урока {lesson_index + 1} курса {course.title}',
                     'preview': None,
                     'video_link': 'https://www.example.com',
-                    'course': course
+                    'course': course,
+                    'owner': random.choice(users)  # Произвольный пользователь становится владельцем урока
+
                 }
                 lesson, created = Lesson.objects.update_or_create(
                     title=f'Урок {lesson_index + 1} курса {course.title}',

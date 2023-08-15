@@ -71,8 +71,8 @@ class Command(BaseCommand):
 
         # Создать группы "Модераторы", "Пользователи" и "Администраторы"
         groups_data = [
-            ('Модераторы', moderator_user, ['add', 'change', 'view']),
-            ('Пользователи', simple_user, ['change', 'view']),
+            ('Модераторы', moderator_user, ['change', 'view']),
+            ('Пользователи', simple_user, ['add', 'view']),
             ('Администраторы', admin_user, ['add', 'change', 'view']),
         ]
 
