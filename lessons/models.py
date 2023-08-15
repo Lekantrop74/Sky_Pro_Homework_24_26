@@ -7,11 +7,10 @@ from users.models import User
 class Course(models.Model):
     objects = None
     title = models.CharField(max_length=200, unique=True, verbose_name='Заголовок')
-    preview = models.ImageField(upload_to='previews/', verbose_name='Превью')
+    preview = models.ImageField(upload_to='previews/', verbose_name='Превью', blank=True, null=True)
     description = models.TextField()
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True,
                               verbose_name='Владелец')
-
 
     def __str__(self):
         return self.title
@@ -24,10 +23,10 @@ class Lesson(models.Model):
     description = models.TextField(verbose_name='Описание')
     preview = models.ImageField(upload_to='lesson_previews/', verbose_name='Превью', null=True, blank=True)
     video_link = models.URLField(verbose_name='Ссылка', null=True, blank=True)
-    course = models.ForeignKey('Course', on_delete=models.CASCADE, verbose_name='Курс', related_name='lessons', default=None)
+    course = models.ForeignKey('Course', on_delete=models.CASCADE, verbose_name='Курс', related_name='lessons',
+                               default=None)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True,
                               verbose_name='Владелец')
-
 
     def __str__(self):
         return self.title
@@ -45,5 +44,3 @@ class Payment(models.Model):
     ]
     payment_method = models.CharField(max_length=10, choices=payment_method_choices, verbose_name='Метод оплаты')
     lessons = models.ManyToManyField(Lesson, related_name='payments', blank=True)
-
-

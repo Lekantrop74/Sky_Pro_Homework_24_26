@@ -11,7 +11,7 @@ app_name = LessonsConfig.name
 router = DefaultRouter()
 
 # Регистрируем ViewSet для курсов
-router.register(r'courses', CourseViewSet)
+router.register(r'courses', CourseViewSet, basename='course')
 
 # Добавляем маршруты ViewSet к общим URL-путям
 urlpatterns = [

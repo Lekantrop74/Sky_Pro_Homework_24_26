@@ -1,6 +1,8 @@
 from rest_framework import permissions
 from rest_framework.permissions import BasePermission
 
+from lessons.models import Lesson, Course
+
 
 class IsModeratorOrReadOnly(BasePermission):
     def has_permission(self, request, view):
@@ -10,9 +12,11 @@ class IsModeratorOrReadOnly(BasePermission):
         return request.method in permissions.SAFE_METHODS
 
 
-class IsOwnerOrModerator(permissions.BasePermission):
-    def has_object_permission(self, request, view, obj):
-        if request.user.is_staff or request.user.groups.filter(name='Модераторы').exists():
-            return True
+class IsModeratorEditOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        user = request.user
 
-        return obj.owner == request.user
+        if user.groups.filter(name='Модераторы').exists():
+            return False
+
+        return True
