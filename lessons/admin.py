@@ -17,3 +17,8 @@ class ContactAdmin(admin.ModelAdmin):
 @admin.register(Payment)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ["user"]
+
+
+@admin.register(CourseSubscription)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ["owner"]

@@ -44,3 +44,18 @@ class Payment(models.Model):
     ]
     payment_method = models.CharField(max_length=10, choices=payment_method_choices, verbose_name='Метод оплаты')
     lessons = models.ManyToManyField(Lesson, related_name='payments', blank=True)
+
+
+class CourseSubscription(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь подписки',
+                              related_name='User_subscription', null=True, blank=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', related_name='course')
+    is_subscribed = models.BooleanField(default=False, verbose_name='Статус подписки')
+
+    def __str__(self):
+        return f"{self.owner}"
+
+    class Meta:
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
+        unique_together = ('owner', 'course')
