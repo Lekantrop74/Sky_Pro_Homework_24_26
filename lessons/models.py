@@ -52,9 +52,6 @@ class CourseSubscription(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', related_name='course')
     is_subscribed = models.BooleanField(default=False, verbose_name='Статус подписки')
 
-    def __str__(self):
-        return f"{self.owner}"
-
     class Meta:
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'

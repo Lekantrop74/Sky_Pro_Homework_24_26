@@ -4,6 +4,7 @@ from lessons.apps import LessonsConfig
 from lessons.views.course import *
 from lessons.views.lessons import *
 from lessons.views.payment import PaymentListApiView
+from lessons.views.subscriptions import *
 
 app_name = LessonsConfig.name
 
@@ -22,10 +23,10 @@ urlpatterns = [
     path('lessons/<int:pk>/update/', LessonUpdateApiView.as_view(), name='lesson-update'),
     path('lessons/<int:pk>/delete/', LessonDestroyApiView.as_view(), name='lesson-delete'),
     # subscription
-    # path("subscription/", SubscriptionListView.as_view(), name="show_all_subscriptions"),
-    # path("subscription/create/", SubscriptionCreateView.as_view(), name="subscription_create"),
-    # path("subscription/update/<int:pk>/", SubscriptionUpdateView.as_view(), name="subscription_update"),
-    # path("subscription/delete/<int:pk>/", SubscriptionDeleteView.as_view(), name="subscription_delete"),
+    path("subscription/", SubscriptionListView.as_view(), name="show_all_subscriptions"),
+    path("subscription/create/", SubscriptionCreateView.as_view(), name="subscription_create"),
+    path("subscription/update/<int:pk>/", SubscriptionUpdateView.as_view(), name="subscription_update"),
+    path("subscription/delete/<int:pk>/", SubscriptionDeleteView.as_view(), name="subscription_delete"),
 
 
 

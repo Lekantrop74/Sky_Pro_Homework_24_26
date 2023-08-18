@@ -12,6 +12,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         User = get_user_model()
         users = User.objects.all()
+        courses = Course.objects.all()
+
 
         for index in range(3):
             course_defaults = {
@@ -52,6 +54,19 @@ class Command(BaseCommand):
                     course_or_lesson=course,
                     defaults=payment_defaults
                 )
-                payment.lessons.set(course.lessons.all())  # Attach lessons for this course
+                payment.lessons.set(course.lessons.all())
+
+        print('Созданы объекты Course, Lesson, Payment')
+
+        for user in users:
+            for course in courses:
+                is_subscribed = random.choice([True, False])  # Случайно выбираем статус подписки
+                subscription, created = CourseSubscription.objects.update_or_create(
+                    owner=user,
+                    course=course,
+                    defaults={'is_subscribed': is_subscribed}
+                    )
+        print('Созданы объекты CourseSubscription')
+
 
         self.stdout.write(self.style.SUCCESS('Данные по курсам, урокам и оплатам этих уроков созданы'))
