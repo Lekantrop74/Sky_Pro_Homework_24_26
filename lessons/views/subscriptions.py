@@ -30,8 +30,6 @@ class SubscriptionCreateView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated, IsModeratorEditOnly]
 
 
-
-
 class SubscriptionUpdateView(generics.UpdateAPIView):
     """ Update information in subscription """
     queryset = CourseSubscription.objects.all()

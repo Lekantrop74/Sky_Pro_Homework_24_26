@@ -33,6 +33,7 @@ class Lesson(models.Model):
 
 
 class Payment(models.Model):
+    objects = None
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     payment_date = models.DateField(verbose_name='Дата оплаты')
     course_or_lesson = models.ForeignKey('Course',
@@ -47,6 +48,7 @@ class Payment(models.Model):
 
 
 class CourseSubscription(models.Model):
+    objects = None
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь подписки',
                               related_name='User_subscription', null=True, blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', related_name='course')
