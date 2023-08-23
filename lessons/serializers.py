@@ -40,6 +40,8 @@ class PaymentSerializer(serializers.ModelSerializer):
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
+    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = CourseSubscription
         fields = "__all__"

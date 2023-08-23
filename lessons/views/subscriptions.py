@@ -29,6 +29,9 @@ class SubscriptionCreateView(generics.CreateAPIView):
     serializer_class = SubscriptionSerializer
     permission_classes = [IsAuthenticated, IsModeratorEditOnly]
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 class SubscriptionUpdateView(generics.UpdateAPIView):
     """ Update information in subscription """
